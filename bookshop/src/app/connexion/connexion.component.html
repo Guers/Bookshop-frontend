@@ -1,0 +1,65 @@
+<div class="container align-self-center ">
+    <div class="row justify-content-md-center">
+        <div class="card" style="width: 40rem;">
+            <div class="card-header">
+                <h3 class="text-center">Connexion</h3>
+            </div>
+            <div class="card-body">
+                <form #form="ngForm" (ngSubmit)="onSubmit(form)" >
+
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email"
+                            [(ngModel)]="email" #emailInput="ngModel"
+                             required
+                             [ngClass]="{'is-invalid' : (emailInput.touched && !emailInput.valid )}">        
+
+                           <div class="invalid-feedback">
+                              <span *ngIf="emailInput.errors?.required">Email address required</span> 
+                           </div> 
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="Password" name="password" [(ngModel)]="password" #passwordInput="ngModel"
+                            required
+                            [ngClass]="{'is-invalid' : passwordInput.touched && !passwordInput.valid}"
+                            >
+                            <div class="invalid-feedback">
+                                <span *ngIf="passwordInput.errors?.required">
+                                    Password required
+                                </span>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row justify-content-md-center">
+                            <button type="submit" class="btn btn-primary col-md-2"
+                            >Connexion</button>
+                            <a href="#" class="card-link col-md-10">Mot de passe oublié?</a>
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <div [hidden]="checkForm" class="alert alert-danger">
+                            wrong username or password 
+                        </div>
+                     </div>
+                   
+                </form>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{{form.value |json}}
+
+<!-- Footer -->
+<footer>
+    <div class="footer-copyright text-center py-3">
+        Djimafo Guers Vagal © 2020 Copyright:
+
+    </div>
+</footer>
