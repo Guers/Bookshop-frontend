@@ -19,10 +19,10 @@
 }
 
 .backgroundBook{
-    /* background-image: url('../../assets/backgrounBook.png'); */
+    background-image: url('../../assets/backgrounBook.png');
     background-repeat: no-repeat;
     height: 300px;
-    background-size: cover; 
+    /* background-size: cover;  */
     background-position: center;
-    background-color: #cccccc;
+    /* background-color: #cccccc; */
 }

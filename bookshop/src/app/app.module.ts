@@ -15,19 +15,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { BooksComponent } from './books/books.component';
-import { BookDetailComponent } from './book-detail/book-detail.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { BookData } from './books/book-data';
+import { BookShowComponent } from './book-show/book-show.component';
+import { BookEditComponent } from './book-edit/book-edit.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     BooksComponent,
-    BookDetailComponent,
     InscriptionComponent,
-    ConnexionComponent
+    ConnexionComponent,
+    BookShowComponent,
+    BookEditComponent
   ],
   imports: [
     BrowserModule,

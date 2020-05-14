@@ -1,0 +1,83 @@
+<p-dialog [(visible)]="displayDetail" [maximizable]="true" [closable]="false" [style]="{width: '50vw'}"
+    [baseZIndex]="10000">
+
+    <div class="container">
+        <div class="row">
+            <div class="media">
+                <img [src]="book?.picture" class="align-self-center mr-3" alt="...">
+                <div class="media-body">
+                    <h5 class="mt-0">{{book?.title}}</h5>
+
+                    <div class="container">
+
+                        <div class="row align-items-start">
+                            <div class="col">
+                                <p>The story begins as Don Vito Corleone, the head of a New York Mafia family, oversees
+                                    his
+                                    daughter's
+                                    wedding.
+                                    His beloved son Michael has just come home from the war, but does not intend to
+                                    become part of
+                                    his
+                                    father's
+                                    business.
+                                    Through Michael's life the nature of the family business becomes clear. The business
+                                    of the
+                                    family is
+                                    just
+                                    like
+                                    the
+                                    head of the family,
+                                    kind and benevolent to those who give respect, but given to ruthless violence
+                                    whenever anything
+                                    stands
+                                    against the
+                                    good of the family.</p>
+                                <p class="mb-0">Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu
+                                    leo. Cum sociis
+                                    natoque
+                                    penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-md-center align-items-end">
+                            <div class="col col-lg-2">
+                                <button pButton type="button" label="Add"
+                                    class="ui-button-rounded ui-button-success"></button>
+                            </div>
+                            <div class="col col-lg-2">
+                                <button pButton type="button" label="Edit" class="ui-button-rounded ui-button-warning"
+                                    [routerLink]="['/books',book?.id]"
+                                    [queryParams]="{book : book | json, displayDetail : displayDetail}"></button>
+                            </div>
+                            <div class="col col-lg-2">
+                                <button pButton type="button" label="Remove"
+                                    class="ui-button-rounded ui-button-danger"></button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- <button type="button" class="close" aria-label="Close" (click)="closeDetailBook()">
+            <span aria-hidden="true">&times;</span>
+          </button>  
+               -->
+
+
+
+    <p-footer>
+        <button type="button" pButton icon="pi pi-times" (click)="closeDetailBook()" label="Cancle"
+            class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>

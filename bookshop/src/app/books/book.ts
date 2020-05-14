@@ -1,13 +1,20 @@
 export interface Book {
-    bookId: number,
+    id: number,
     title: string,
     author: string,
     picture: string,
-    publicationYear: number
+    publicationDate: string,
+    categoryId :number,
+    categoryName?:string
+    description?:string
 }
 
-export interface    Category {
-    categoryId: number,
-    categoryTitle: string,
-    books: Book[]
+export interface  Category {
+    id: number,
+    name: string,
+}
+
+export interface CategoryBook {
+   category : Category,
+   books : Book []
 }

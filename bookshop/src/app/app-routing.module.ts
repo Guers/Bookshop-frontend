@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BooksComponent } from './books/books.component';
-import { BookDetailComponent } from './book-detail/book-detail.component';
+
 import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
+import { BookEditComponent } from './book-edit/book-edit.component';
 
 
 const routes: Routes = [
@@ -11,7 +12,7 @@ const routes: Routes = [
   {path :'', redirectTo : '/connexion', pathMatch:'full'},
   {path :'inscription', component :InscriptionComponent},
   {path :'books', component :BooksComponent},
-  {path :'books/:id', component :BookDetailComponent},
+  {path :'books/:id', component :BookEditComponent},
 ];
 
 @NgModule({

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BookService } from './book.service';
-import { Category } from './book';
+import { Category, Book, CategoryBook } from './book';
+import { tap } from 'rxjs/operators';
 
 
 @Component({
@@ -12,8 +13,11 @@ import { Category } from './book';
 export class BooksComponent implements OnInit {
 
   userName: string;
-  displayBasic: boolean;
-  booksCategorie: Category;
+  displayDetail: boolean;
+  booksCategorie$=this.bookService.getBooksCategory$;
+  categories$=this.bookService.getCategorie$
+  bookSelected:Book;
+  books: CategoryBook[]=[];
 
   responsiveOptions;
   constructor(private route: ActivatedRoute, private bookService: BookService) {
@@ -39,15 +43,35 @@ export class BooksComponent implements OnInit {
   ngOnInit(): void {
     this.userName = this.route.snapshot.queryParamMap.get('user');
     console.log(this.userName);
-    this.bookService.getBooks().subscribe(data => {
+   
+    this.categories$.forEach(categories=>categories.forEach(category=>{
+      this.booksCategorie$.forEach(booksCategories=>booksCategories.forEach(book=>{
+        if(category.id===book.id){
+          this.books.push({
+            category: category,
+            books: booksCategories.filter(book=>book.categoryId===category.id)
+          })
+        }
+      
+      }))
+    }))
+    
 
-      this.booksCategorie = data;
-      console.log("booooooks", data)
-    });
+    console.log("neww array", this.books);
+
+
+// console.log("categoryBookkkk", this.booksCategorie$);
+   
+    
   }
 
-  showBasicDialog() {
-    this.displayBasic = true;
-    console.log("show dialog ");
+  showBasicDialog(book :Book) {
+    this.displayDetail = true;
+    this.bookSelected=book;
+    console.log("show dialog pere",this.displayDetail);
+  }
+
+  closeDetail(value:boolean){
+    this.displayDetail=value;
   }
 }
