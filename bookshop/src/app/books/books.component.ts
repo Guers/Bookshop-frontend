@@ -42,7 +42,7 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.userName = this.route.snapshot.queryParamMap.get('user');
-    console.log(this.userName);
+    // console.log(this.userName);
    
     this.categories$.forEach(categories=>categories.forEach(category=>{
       this.booksCategorie$.forEach(booksCategories=>booksCategories.forEach(book=>{
@@ -57,7 +57,7 @@ export class BooksComponent implements OnInit {
     }))
     
 
-    console.log("neww array", this.books);
+    // console.log("neww array", this.books);
 
 
 // console.log("categoryBookkkk", this.booksCategorie$);
@@ -68,7 +68,7 @@ export class BooksComponent implements OnInit {
   showBasicDialog(book :Book) {
     this.displayDetail = true;
     this.bookSelected=book;
-    console.log("show dialog pere",this.displayDetail);
+    // console.log("show dialog pere",this.displayDetail);
   }
 
   closeDetail(value:boolean){

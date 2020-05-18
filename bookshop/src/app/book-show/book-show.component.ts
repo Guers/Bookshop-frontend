@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Book } from '../books/book';
 import { ActivatedRoute } from '@angular/router';
+import { BookService } from '../books/book.service';
 
 
 
@@ -18,7 +19,9 @@ export class BookShowComponent implements OnInit,OnChanges {
   // picture :string;
   // id:number;
   // bookSelected :Book;
-  constructor( private route : ActivatedRoute) { }
+  errorMessage : string;
+  
+  constructor( private route : ActivatedRoute,private bookService : BookService) { }
 
   ngOnInit(): void {
   
@@ -43,14 +46,22 @@ export class BookShowComponent implements OnInit,OnChanges {
     
 
     
-    console.log("displayDetail no book",this.displayDetail);
+    // console.log("displayDetail no book",this.displayDetail);
   }
 
   closeDetailBook():void{
 
     this.displayDetail=false;
     this.closeDetail.emit(false);
-    console.log("show displaydetail 2 fils", this.displayDetail);
+    // console.log("show displaydetail 2 fils", this.displayDetail);
+  }
+
+  delete() : void{
+    this.bookService.deleteBook(this.book.id).subscribe({
+      next :()=>this.closeDetailBook(),
+      error:err=> this.errorMessage=err
+    })
+
   }
 
 }

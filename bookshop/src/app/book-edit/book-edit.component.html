@@ -46,31 +46,47 @@
             <div class="row align-items-center">
                 <div class="col">
 
-                    <form #form="ngForm" >
+                    <form (ngSubmit)="save()" [formGroup]="bookForm" novalidate>
                         <div class="media">
                             <div class="form-group align-self-center mr-3">
                                 <img src={{book?.picture}} alt="...">
-                                <input type="file" class="form-control-file" id="picture" name="picture">
+                                <!-- <input type="file" class="form-control-file" id="picture" formControlName="picture"> -->
+                                <p-fileUpload name="myfile[]" customUpload="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
+                               
                             </div>
 
                             <div class="media-body">
-                                <h5 class="mt-0">Center-aligned media</h5>
+                                <h5 class="mt-0"> Edit book : {{book?.title}}</h5>
 
-                                <fieldset disabled>
-                                    <div class="form-group">
-                                        <label for="id">ID</label>
-                                        <input type="number" class="form-control" id="id" value="{{book?.id}}">
-                                    </div>
-                                </fieldset>
+
+                                <div class="form-group">
+                                    <label for="id">ID</label>
+                                    <input type="number" class="form-control" id="id" formControlName="id">
+                                </div>
+
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="title">Title</label>
-                                        <input type="text" class="form-control" id="title" value="{{book?.title}}">
+                                        <input type="text" class="form-control" id="title" formControlName="title"
+                                            [ngClass]="{'is-invalid' : (bookForm.get('title').touched || bookForm.get('title').dirty) && !bookForm.get('title').valid}">
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="bookForm.get('title').errors?.required">
+                                                Please enter a Title.
+                                            </span>
+                                        </span>
                                     </div>
+
                                     <div class="form-group col-md-6">
                                         <label for="author">Author</label>
-                                        <input type="text" class="form-control" id="author" value="{{book?.author}}">
+                                        <input type="text" class="form-control" id="author" formControlName="author"
+                                            [ngClass]="{'is-invalid' : (bookForm.get('author').touched || bookForm.get('author').dirty) && !bookForm.get('author').valid}">
+
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="bookForm.get('author').errors?.required">
+                                                Please enter an Author.
+                                            </span>
+                                        </span>
                                     </div>
                                 </div>
 
@@ -78,16 +94,24 @@
                                     <div class="form-group col-md-6">
                                         <label for="date">Publication Date</label>
                                         <input type="date" class="form-control" id="date"
-                                            value="{{book?.publicationDate |  date:'yyyy-MM-dd'}}">
+                                            formControlName="publicationDate"
+                                            [ngClass]="{'is-invalid' : (bookForm.get('publicationDate').touched || bookForm.get('publicationDate').dirty) && !bookForm.get('publicationDate').valid}">
+
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="bookForm.get('publicationDate').errors?.required">
+                                                Please enter a publication date.
+                                            </span>
+                                        </span>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputState">Category</label>
-                                        <select id="inputState" class="form-control">
-                                            <option selected>{{book?.categoryName}}</option>
-                                            <option *ngFor="let category of categories$ | async ">
-                                                <!-- <p  *ngIf="book?.categoryName!==category.name"> -->
+                                        <select id="inputState" class="form-control" formControlName="categoryName">
+                                            <!-- <option selected>{{book?.categoryName}}</option> -->
+                                            <option [selected]="book?.categoryName" *ngFor="let category of categories$ | async "
+                                             >
+                                                
                                                 {{category.name}}
-                                                <!-- </p> -->
+                                               
                                             </option>
                                         </select>
                                     </div>
@@ -96,7 +120,8 @@
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control" id="description" rows="3"></textarea>
+                                    <textarea class="form-control" id="description" rows="3"
+                                        formControlName="description"></textarea>
                                 </div>
 
 
@@ -107,6 +132,10 @@
                                         sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus
                                         mus.</p>
                                 </div>
+
+                                <div class="alert alert-danger" *ngIf="errorMessage">
+                                    {{errorMessage}}
+                                </div>
                                 <div class="row justify-content-md-center ">
                                     <div class="col col-md-2">
                                         <button pButton type="button" icon="pi pi-arrow-left"
@@ -115,12 +144,12 @@
                                     </div>
 
                                     <div class="col col-md-2">
-                                        <button pButton type="button" label="Save" 
-                                            class="ui-button-rounded ui-button-info"></button>
+                                        <button pButton type="button" label="Save"
+                                            class="ui-button-rounded ui-button-info" type="submit"></button>
                                     </div>
 
                                     <div class="col col-md-2">
-                                        <button pButton type="button" label="Remove"
+                                        <button pButton type="button" label="Delete" (click)="delete()"
                                             class="ui-button-rounded ui-button-danger"></button>
                                     </div>
                                 </div>

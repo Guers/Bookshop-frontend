@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, combineLatest } from 'rxjs';
 import { Category, Book } from './book';
-import { tap, map } from 'rxjs/operators';
+import { tap, map, catchError } from 'rxjs/operators';
 import { CATEGORIES } from './category-data';
 
 @Injectable({
@@ -33,20 +33,12 @@ export class BookService {
   ]).pipe(
     map(([books, categories]) => books.map(book => ({
       ...book,
-      categoryName: categories.find(c => book.categoryId === c.id).name,
+      categoryName: categories?.find(c => book?.categoryId === c?.id)?.name,
     }) as Book
     )),
 
     // tap(data=>console.log(JSON.stringify(data)))
   );
-
-  // getBook(id : number):Observable<Book>{
-  //   const url=`${this.booksUrl}/${id}`
-  //   return this.http.get<Book>(url)
-  //   .pipe(
-  //     tap(data => console.log("un livre",JSON.stringify(data))),
-  //   );
-  // }
 
   getBook(id: number): Observable<Book> {
     const url = `${this.booksUrl}/${id}`
@@ -66,5 +58,28 @@ export class BookService {
     })
     return name;
   }
+
+  updateBook(book : Book) : Observable <Book>{
+    console.log("boooookkk service",book);
+    return this.http.put<Book>(`${this.booksUrl}/${book.id}`,book,{
+      headers : new HttpHeaders({
+        'content-Type':'application/json'
+      })}).pipe(
+        tap(()=>console.log("update Book: " +book.id)),
+        //Return the book on a update
+        map(()=>book),
+
+      )
+  }
+
+deleteBook(id:number):Observable<{}>{
+
+  return this.http.delete(`${this.booksUrl}/${id}`,{
+    headers : new HttpHeaders({
+      'content-Type':'application/json'
+    })}).pipe(
+      tap(()=>console.log("delete Book: " +id))
+     )
+}
 }
 

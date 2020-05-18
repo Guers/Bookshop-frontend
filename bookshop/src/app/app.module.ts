@@ -1,11 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import{ FormsModule} from '@angular/forms'
+import{ FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {CarouselModule} from 'primeng/carousel';
 import {ButtonModule} from 'primeng/button';
 import {DialogModule} from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
+import {FileUploadModule} from 'primeng/fileupload';
 
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -35,11 +37,13 @@ import { BookEditComponent } from './book-edit/book-edit.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     CarouselModule,
     ButtonModule,
     DialogModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FileUploadModule,
     InMemoryWebApiModule.forRoot(BookData),
   ],
   providers: [],

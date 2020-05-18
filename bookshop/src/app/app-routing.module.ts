@@ -5,6 +5,7 @@ import { BooksComponent } from './books/books.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { BookEditComponent } from './book-edit/book-edit.component';
+import { BookEditGuardGuard } from './book-edit/book-edit-guard.guard';
 
 
 const routes: Routes = [
@@ -12,7 +13,7 @@ const routes: Routes = [
   {path :'', redirectTo : '/connexion', pathMatch:'full'},
   {path :'inscription', component :InscriptionComponent},
   {path :'books', component :BooksComponent},
-  {path :'books/:id', component :BookEditComponent},
+  {path :'books/:id', component :BookEditComponent,canDeactivate : [BookEditGuardGuard]},
 ];
 
 @NgModule({
