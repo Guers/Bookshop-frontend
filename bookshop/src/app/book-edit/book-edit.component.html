@@ -94,20 +94,20 @@
                                     <div class="form-group col-md-6">
                                         <label for="date">Publication Date</label>
                                         <input type="date" class="form-control" id="date"
-                                            formControlName="publicationDate"
-                                            [ngClass]="{'is-invalid' : (bookForm.get('publicationDate').touched || bookForm.get('publicationDate').dirty) && !bookForm.get('publicationDate').valid}">
+                                            formControlName="publicationYear"
+                                            [ngClass]="{'is-invalid' : (bookForm.get('publicationYear').touched || bookForm.get('publicationYear').dirty) && !bookForm.get('publicationYear').valid}">
 
                                         <span class="invalid-feedback">
-                                            <span *ngIf="bookForm.get('publicationDate').errors?.required">
+                                            <span *ngIf="bookForm.get('publicationYear').errors?.required">
                                                 Please enter a publication date.
                                             </span>
                                         </span>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="inputState">Category</label>
-                                        <select id="inputState" class="form-control" formControlName="categoryName">
-                                            <!-- <option selected>{{book?.categoryName}}</option> -->
-                                            <option [selected]="book?.categoryName" *ngFor="let category of categories$ | async "
+                                        <select id="inputState" class="form-control" formControlName="categoryTitle">
+                                            <!-- <option selected>{{book?.categoryTitle}}</option> -->
+                                            <option [selected]="book?.categoryTitle" *ngFor="let category of categories$ | async "
                                              >
                                                 
                                                 {{category.name}}

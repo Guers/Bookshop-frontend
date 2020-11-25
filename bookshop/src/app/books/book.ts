@@ -1,17 +1,17 @@
 export interface Book {
-    id: number,
+    bookId: number,
     title: string,
     author: string,
     picture: string,
-    publicationDate: string,
+    publicationYear: string,
     categoryId :number,
-    categoryName?:string
+    categoryTitle?:string
     description?:string
 }
 
 export interface  Category {
-    id: number,
-    name: string,
+    categoryId: number,
+    categoryTitle: string,
 }
 
 export interface CategoryBook {

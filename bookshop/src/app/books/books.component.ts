@@ -14,10 +14,8 @@ export class BooksComponent implements OnInit {
 
   userName: string;
   displayDetail: boolean;
-  booksCategorie$=this.bookService.getBooksCategory$;
-  categories$=this.bookService.getCategorie$
   bookSelected:Book;
-  books: CategoryBook[]=[];
+  books$=this.bookService.getBooksCategory$;
 
   responsiveOptions;
   constructor(private route: ActivatedRoute, private bookService: BookService) {
@@ -41,28 +39,7 @@ export class BooksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userName = this.route.snapshot.queryParamMap.get('user');
-    // console.log(this.userName);
-   
-    this.categories$.forEach(categories=>categories.forEach(category=>{
-      this.booksCategorie$.forEach(booksCategories=>booksCategories.forEach(book=>{
-        if(category.id===book.id){
-          this.books.push({
-            category: category,
-            books: booksCategories.filter(book=>book.categoryId===category.id)
-          })
-        }
-      
-      }))
-    }))
-    
-
-    // console.log("neww array", this.books);
-
-
-// console.log("categoryBookkkk", this.booksCategorie$);
-   
-    
+    this.userName = this.route.snapshot.queryParamMap.get('user');    
   }
 
   showBasicDialog(book :Book) {

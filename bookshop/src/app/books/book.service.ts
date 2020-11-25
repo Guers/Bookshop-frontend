@@ -1,71 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, combineLatest } from 'rxjs';
-import { Category, Book } from './book';
+import { Observable,  } from 'rxjs';
+import { Category, Book, CategoryBook } from './book';
 import { tap, map, catchError } from 'rxjs/operators';
-import { CATEGORIES } from './category-data';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookService {
-  private booksUrl = 'api/books';
+  private booksUrl = 'http://localhost:8080/books';
+  private bookByIdUrl = 'http://localhost:8080/book';
+  private categoriesUrl = 'http://localhost:8080/categories';
+  private catBooksUrl = 'http://localhost:8080/categoriesBooks';
+  private updateBookUrl = 'http://localhost:8080/updateBook';
+  private deleteBookUrl = 'http://localhost:8080/delete';
   constructor(private http: HttpClient) { }
 
   getBooks$ = this.http.get<Book[]>(this.booksUrl);
 
-  getCategorie$ = of<Category[]>(CATEGORIES).pipe(
-    tap(data => console.log(JSON.stringify(data)))
+  getCategorie$ = this.http.get<Category[]>(this.categoriesUrl);
 
-  );
-
-  //   getBooks():Observable<Category[]>{
-  //     return this.http.get<Category[]>(this.booksUrl)
-  //     .pipe(
-  //       // tap(data => console.log(JSON.stringify(data))),
-  //     );
-  // }
+  getBooksCategory$=this.http.get<CategoryBook[]>(this.catBooksUrl);
 
 
-  getBooksCategory$ = combineLatest([
-    this.getBooks$,
-    this.getCategorie$
-  ]).pipe(
-    map(([books, categories]) => books.map(book => ({
-      ...book,
-      categoryName: categories?.find(c => book?.categoryId === c?.id)?.name,
-    }) as Book
-    )),
-
-    // tap(data=>console.log(JSON.stringify(data)))
-  );
-
-  getBook(id: number): Observable<Book> {
-    const url = `${this.booksUrl}/${id}`
-    return this.http.get<Book>(url)
-      .pipe(
-        map(book => ({
-          ...book,
-          categoryName: this.getCategoryName(book.categoryId)
-        }))
-      );
-  }
-  getCategoryName(id: number): string {
-    let name: string;
-    this.getCategorie$.subscribe(cat => {
-      name = cat.find(c => c.id === id)?.name
-      console.log("nammmme",name);
-    })
-    return name;
-  }
+getBook(id: number): Observable<Book> {
+  const url = `${this.bookByIdUrl}/${id}`
+   return this.http.get<Book>(url)
+}
 
   updateBook(book : Book) : Observable <Book>{
     console.log("boooookkk service",book);
-    return this.http.put<Book>(`${this.booksUrl}/${book.id}`,book,{
+    return this.http.put<Book>(`${this.updateBookUrl}`,book,{
       headers : new HttpHeaders({
         'content-Type':'application/json'
       })}).pipe(
-        tap(()=>console.log("update Book: " +book.id)),
+        tap(()=>console.log("update Book: " +book)),
         //Return the book on a update
         map(()=>book),
 
@@ -73,8 +42,9 @@ export class BookService {
   }
 
 deleteBook(id:number):Observable<{}>{
+  console.log("iddddddd",id)
 
-  return this.http.delete(`${this.booksUrl}/${id}`,{
+  return this.http.delete(`${this.deleteBookUrl}/${id}`,{
     headers : new HttpHeaders({
       'content-Type':'application/json'
     })}).pipe(

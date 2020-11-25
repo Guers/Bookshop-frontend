@@ -6,7 +6,6 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { DatePipe } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { MessageService } from 'primeng/api';
-import { error } from '@angular/compiler/src/util';
 
 
 @Component({
@@ -39,10 +38,10 @@ export class BookEditComponent implements OnInit, OnDestroy {
       id: { value: '', disabled: true },
       title: [{ value: '' }, Validators.required],
       author: [{ value: '' }, Validators.required],
-      publicationDate: [{ value: '' }, Validators.required],
+      publicationYear: [{ value: '' }, Validators.required],
       description: [{ value: '' }],
       categoryId: '',
-      categoryName: [{ value: '' }]
+      categoryTitle: [{ value: '' }]
 
     });
 
@@ -53,13 +52,13 @@ export class BookEditComponent implements OnInit, OnDestroy {
         this.book = book;
         // console.log("dataaaaaaaaa", this.book);
         this.bookForm.patchValue({
-          id: book.id,
+          id: book.bookId,
           // picture:book.picture,
           title: book.title,
           author: book.author,
-          publicationDate: this.dataPipe.transform(book.publicationDate, 'yyyy-MM-dd'),
+          publicationYear: this.dataPipe.transform(book.publicationYear, 'yyyy-MM-dd'),
           description: book.description,
-          // categoryName:book.categoryName
+          // categoryTitle:book.categoryTitle
 
         })
       }),
@@ -83,13 +82,13 @@ export class BookEditComponent implements OnInit, OnDestroy {
         
           this.categories$.subscribe({
             next :(categories)=>{
-           if( this.bookForm.get('categoryName').dirty&&this.bookForm.get('categoryName').valid){
+           if( this.bookForm.get('categoryTitle').dirty&&this.bookForm.get('categoryTitle').valid){
             this.bookForm.patchValue({
-              categoryId: categories.find(c=>c.name===this.bookForm.get('categoryName').value).id
+              categoryId: categories.find(c=>c.categoryTitle===this.bookForm.get('categoryTitle').value).categoryId
             })
               }else{
                 this.bookForm.patchValue({
-                  categoryId: this.book.id
+                  categoryId: this.book.bookId
                 })
               }
             

@@ -10,7 +10,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FileUploadModule} from 'primeng/fileupload';
 
 
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -19,7 +19,7 @@ import { UserComponent } from './user/user.component';
 import { BooksComponent } from './books/books.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
-import { BookData } from './books/book-data';
+// import { BookData } from './books/book-data';
 import { BookShowComponent } from './book-show/book-show.component';
 import { BookEditComponent } from './book-edit/book-edit.component';
 
@@ -44,7 +44,7 @@ import { BookEditComponent } from './book-edit/book-edit.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FileUploadModule,
-    InMemoryWebApiModule.forRoot(BookData),
+    // InMemoryWebApiModule.forRoot(BookData),
   ],
   providers: [],
   bootstrap: [AppComponent]

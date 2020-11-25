@@ -56,11 +56,11 @@
     <body>
       <div class="container">
         <div class="row">
-          <div class="col-md" *ngFor="let book of books">
-            <p-carousel [value]="book.books" [numVisible]="4" [numScroll]="3" [circular]="false"
+          <div class="col-md" *ngFor="let book of books$ | async">
+            <p-carousel [value]="book?.books" [numVisible]="4" [numScroll]="3" [circular]="false"
               [responsiveOptions]="responsiveOptions" *ngIf="book.books.length!==0">
               <p-header>
-                <h3 class="shadow-lg p-3 mb-5 bg-white rounded text-center font-italic">{{book.category.name}}</h3>
+                <h3 class="shadow-lg p-3 mb-5 bg-white rounded text-center font-italic">{{book?.categoryTitle}}</h3>
               </p-header>
               <ng-template let-book pTemplate="item">
                 <div class="book-details">
@@ -69,8 +69,8 @@
                       <img [src]="book.picture">
                     </div>
                     <div class="p-col-12 boo font-italick-data">
-                      <div class="book-title">{{book.title}}</div>
-                      <div class="book-subtitle">{{book.publicationDate}} | {{book.author}}</div>
+                      <div class="book-title">{{book?.title}}</div>
+                      <div class="book-subtitle">{{book?.publicationYear}} | {{book?.author}}</div>
 
                       <div class="book-button">
 

@@ -57,7 +57,8 @@ export class BookShowComponent implements OnInit,OnChanges {
   }
 
   delete() : void{
-    this.bookService.deleteBook(this.book.id).subscribe({
+   
+    this.bookService.deleteBook(this.book.bookId).subscribe({
       next :()=>this.closeDetailBook(),
       error:err=> this.errorMessage=err
     })
